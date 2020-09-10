@@ -1,0 +1,261 @@
+
+
+\documentclass{beamer}
+
+\mode<presentation>{
+\usetheme{Madrid}
+}
+\usepackage[american]{circuitikz}
+\usepackage{graphicx} 
+\usepackage{booktabs}  
+
+\def\circledarrow#1#2#3{ % #1 Style, #2 Center, #3 Radius
+\draw[#1,->] (#2) +(80:#3) arc(80:-260:#3);
+}
+
+\title[Control Systems]{Control Systems Assignment-1\\ Problem 17} 
+
+\author{Manjunath Kakkireni \\ EE19BTECH11015} 
+\date{\today} 
+
+\begin{document}
+
+\begin{frame}
+\titlepage 
+\end{frame}
+
+\begin{frame}
+\frametitle{Overview} 
+\tableofcontents 
+\end{frame}
+
+
+\section{Problem a} 
+\begin{frame}
+\frametitle{Problem a}
+\textbf{Find transfer function G(s)=V\textsubscript{L}(s)/V(s) for the network given below.} \\
+\begin{center}
+\begin{circuitikz}
+\draw
+  (4,0) to[cute inductor,l=$2H$] (0,0)
+  to[voltage source, V=v(t)] (0,-4) to[short] (4,-4)
+  to[R,l=$2\Omega$] (4,0)
+  to[short] (6,0)
+  to[R,l=$2\Omega$] (6,-2)
+  to[cute inductor,l=2H  V\textsubscript{L}(t) ] (6,-4)
+  to[short](4,-4)
+  (6,-2) to[short] (7.2,-2)
+  node[label={[font=\footnotesize]above:+}] {}
+  (6,-4) to[short] (7.2,-4)
+  node[label={[font=\footnotesize]below:-}] {}
+  \end{circuitikz}
+  \end{center}
+\end{frame}
+
+%------------------------------------------------
+
+\begin{frame}
+ \textbf{Solution:} For the given network, equivalent circuit in S domain can be obtained by Laplace Transform.
+\begin{center}
+\begin{circuitikz}
+\draw
+  (4,0) to[cute inductor,l=$2s\Omega$] (0,0)
+  to[voltage source, V=V(s)] (0,-4) to[short] (4,-4)
+  to[R,l=$2\Omega$] (4,0)
+  to[short] (6,0)
+  to[R,l=$2\Omega$] (6,-2)
+  to[cute inductor,l=$2s\Omega V\textsubscript{L}(s)$] (6,-4)
+  to[short](4,-4)
+  (6,-2) to[short] (7.2,-2)
+  node[label={[font=\footnotesize]above:+}] {}
+  (6,-4) to[short] (7.2,-4)
+  node[label={[font=\footnotesize]below:-}] {}
+  \draw [blue, Latex-] (2,-2.5) node [below] {$I_1(s)$} arc (-90:145:6mm)
+  \draw [blue, Latex-] (5,-2.5) node [below] {$I_2(s)$} arc (-90:145:6mm)
+  \end{circuitikz}\\
+  Resultant Circuit
+  \end{center}
+\end{frame}
+
+%------------------------------------------------
+
+\begin{frame}
+Apply Kirchhoff's voltage law to each closed loop.\\
+\textbf{Mesh-1:}\\
+   
+
+\begin{equation}
+    V(s) - 2sI_1(s)-2(I_1(s)-I_2(s))=0\nonumber
+\end{equation}
+\begin{equation}
+    (2s+2)I_1 - 2I_2(s)=V(s)
+\end{equation}
+\textbf{Mesh-2:}\\
+\begin{equation}
+    -2(I_2(s)- I_1(s)) -2I_2(s)-2sI_2(s)=0\nonumber
+\end{equation}
+\begin{equation}
+   -2I_1(s) + (2s+4)I_2(s)=0\nonumber
+\end{equation}
+\begin{equation}
+    -I_1(s) + (s+2)I_2=0
+\end{equation}
+Solve 1 and 2 by using Cramer's rule, y =D_y/D \\
+\begin{equation}
+    I_2(s)= \frac{\begin{vmatrix} 2(s+1) & V(s) \\ -1 & 0 \end{vmatrix}}{\begin{vmatrix} 2(s+1)  &  -2 \\  -1 & s+2 \end{vmatrix}} \nonumber
+\end{equation}
+\end{frame}
+
+%------------------------------------------------
+
+\begin{frame}
+\begin{equation}
+    I_2(s)=\frac{V(s)}{2s^2 + 6s +2}\nonumber
+\end{equation}
+From the circuit,
+\begin{equation}
+    V_L(s)=I_2(s)*2s\nonumber
+\end{equation}
+\begin{equation}
+    V_L(s)=\frac{V(s)}{2s^2 + 6s +2}*2s\nonumber
+\end{equation}
+\begin{equation}
+    V_L(s)=\frac{V(s)*s}{s^2 + 3s +1 }\nonumber
+\end{equation}
+\begin{equation}
+  \frac{V_L(s)}{V(s)}= \frac{s}{s^2 + 3s + 1} \nonumber
+\end{equation}
+Therefore, transfer function G(s) of the given network is equal to 
+\begin{equation}
+  \frac{s}{s^2 + 3s + 1} \nonumber
+\end{equation}
+\end{frame}
+
+\begin{frame}
+    \begin{center}
+    \includegraphics[width=11cm]{Transfer Function 1.png}
+\end{center}
+\end{frame}
+
+\begin{frame}
+    \begin{center}
+    \includegraphics[width=12cm]{a.png}
+\end{center}
+\end{frame}
+
+%------------------------------------------------
+\section{Problem b} 
+\begin{frame}
+\frametitle{Problem b}
+\textbf{Find transfer function G(s)=V\textsubscript{L}(s)/V(s) for the network given below.} \\
+\begin{center}
+\begin{circuitikz}
+\draw
+  (4,0) to[capacitor,l=$1F$](2,0)
+  to[resistor,l=$2\Omega$] (0,0)
+  to[voltage source, V=v(t)] (0,-4) to[short] (4,-4)
+  to[capacitor,l=$1F$] (4,-3)
+  to[resistor,l=$2\Omega$] (4,0)
+  to[short] (6,0)
+  to[R,l=$2\Omega$] (6,-2)
+  to[cute inductor,l=$2H v\textsubscript{L}(t)$] (6,-4)
+  to[short](4,-4)
+  (6,-2) to[short] (7.2,-2)
+  node[label={[font=\footnotesize]above:+}] {}
+  (6,-4) to[short] (7.2,-4)
+  node[label={[font=\footnotesize]below:-}] {}
+  \draw [blue, Latex-] (2,-2.5) node [below] {$I_1(s)$} arc (-90:145:6mm)
+  \draw [blue, Latex-] (5,-2.5) node [below] {$I_2(s)$} arc (-90:145:6mm)
+  \end{circuitikz}
+  \end{center}
+\end{frame}
+
+
+%------------------------------------------------
+\begin{frame}
+ \textbf{Solution:} For the given network, equivalent circuit in S domain can be obtained by Laplace Transform.
+\begin{center}
+\begin{circuitikz}
+\draw
+  (4,0) to[capacitor,l=$\frac{1}{s}\Omega$](2,0)
+  to[resistor,l=$2\Omega$] (0,0)
+  to[voltage source, V=V(s)] (0,-4) to[short] (4,-4)
+  to[capacitor,l=$\frac{1}{s}\Omega$] (4,-3)
+  to[resistor,l=$2\Omega$] (4,0)
+  to[short] (6,0)
+  to[R,l=$2\Omega$] (6,-2)
+  to[cute inductor,l=$2s\Omega V\textsubscript{L}(s)$] (6,-4)
+  to[short](4,-4)
+  (6,-2) to[short] (7.2,-2)
+  node[label={[font=\footnotesize]above:+}] {}
+  (6,-4) to[short] (7.2,-4)
+  node[label={[font=\footnotesize]below:-}] {}
+  \draw [blue, Latex-] (2,-2.5) node [below] {$I_1(s)$} arc (-90:145:6mm)
+  \draw [blue, Latex-] (5,-2.5) node [below] {$I_2(s)$} arc (-90:145:6mm)
+  \end{circuitikz}\\
+  Resultant Circuit
+  \end{center}
+  
+\end{frame}
+%------------------------------------------------
+\begin{frame}
+Apply Kirchhoff's voltage law to each closed loop.\\
+\textbf{Mesh-1:}\\
+   
+
+\begin{equation}
+    V(s) - 2sI_1(s)-\frac{I_1(s)}{S} - 2(I_1(s)-I_2(s)) - \frac{I_1(s)-I_2(s)}{s}=0\nonumber
+\end{equation}
+\begin{equation}
+    (4+\frac{2}{s})I_1(s) - (2+ \frac{1}{s})I_2(s)=V(s)
+\end{equation}
+\textbf{Mesh-2:}\\
+\begin{equation}
+    -\frac{1}{s}(I_2(s)-I_1(s)) - 2(I_2(s)-I_1(s)) -2I_2(s) -2sI_2(s)=0\nonumber
+\end{equation}
+\begin{equation}
+   -( 2+\frac{1}{s})I_1(s)+(2s+ \frac{1}{s} + 4)I_2(s)=0
+\end{equation}
+\end{frame}
+
+%------------------------------------------------
+
+\begin{frame}
+Solve 3 and 4 by using Cramer's rule, y =D_y/D \\
+\begin{equation}
+    I_2(s)= \frac{\begin{vmatrix} 4 + 2/s & V(s) \\ -(2 + 1/s) & 0 \end{vmatrix}}{\begin{vmatrix} 4 + 2/s &  -(2+1/s) \\  -(2 + 1/s) & 2s + 1/s +4 \end{vmatrix}} \nonumber
+\end{equation}
+\begin{equation}
+    I_2(s)=\frac{V(s)*s}{4s^2 + 6s +  1}\nonumber
+\end{equation}
+From the circuit,
+\begin{equation}
+    V_L(s)=I_2(s)*2s\nonumber
+\end{equation}
+\begin{equation}
+    V_L(s)=\frac{V(s)*s}{4s^2 + 6s + 1}*2s\nonumber
+\end{equation}
+\begin{equation}
+    V_L(s)=\frac{V(s)*2s^2}{4s^2 + 6s + 1 }\nonumber
+\end{equation}
+\begin{equation}
+  \frac{V_L(s)}{V(s)}= \frac{2s^2}{4s^2 + 6s + 1 } \nonumber
+\end{equation}
+
+\end{frame}
+\begin{frame}{}
+    Therefore, transfer function G(s) of the given network is equal to 
+\begin{equation}
+  \frac{2s^2}{4s^2 + 6s + 1 } \nonumber
+\end{equation}
+\begin{center}
+    \includegraphics[width=10cm]{Transfer Function 2.png}
+\end{center}
+\end{frame}
+\begin{frame}
+    \begin{center}
+    \includegraphics[width=11.5cm]{b.png}
+\end{center}
+\end{frame}
+
+\end{document}
